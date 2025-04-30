@@ -16,7 +16,7 @@ Create a `.env` file in the root directory and add the following variables:
 MONGO_URI=mongodb://localhost:27017/qresto
 JWT_SECRET=super-secret-key
 JWT_EXPIRES_IN=7d
-# GOOGLE_CLIENT_ID=your-google-client-id
-# GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CLIENT_ID=647621593846-2e2q95e4dcdjmvs47k077e61vktg7otp.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
 ```
 
