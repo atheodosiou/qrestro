@@ -18,4 +18,20 @@ export class UsersService {
     async findById(id: string): Promise<User | null> {
         return this.userModel.findById(id).exec();
     }
+
+    async findByGoogleId(googleId: string) {
+        return this.userModel.findOne({ googleId });
+    }
+
+    async createWithGoogle(data: {
+        googleId: string;
+        email: string;
+        name: string;
+        picture: string;
+    }) {
+        return this.userModel.create({
+            ...data,
+            provider: 'google'
+        });
+    }
 }

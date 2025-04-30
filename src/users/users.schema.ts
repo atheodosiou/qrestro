@@ -16,8 +16,10 @@ export class User {
     @Prop()
     name?: string;
 
-    // For later
     @Prop()
+    picture: string;
+
+    @Prop({ unique: true })
     googleId?: string;
 
     @Prop({ default: 'local', enum: ['local', 'google'] })
