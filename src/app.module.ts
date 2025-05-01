@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { VenuesModule } from './venues/venues.module';
 import { MenuSectionsModule } from './menu-sections/menu-sections.module';
+import { MenuItemsModule } from './menu-items/menu-items.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { MenuSectionsModule } from './menu-sections/menu-sections.module';
     AuthModule,
     UsersModule,
     VenuesModule,
-    MenuSectionsModule
+    MenuSectionsModule,
+    MenuItemsModule
   ]
 })
 export class AppModule { }
