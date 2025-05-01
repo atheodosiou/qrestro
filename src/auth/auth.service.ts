@@ -71,7 +71,7 @@ export class AuthService {
             });
         }
 
-        const token = this.jwtService.sign({ sub: user._id });
+        const token = this.jwtService.sign({ sub: user._id, email: user.email, role: user.role });
 
         return {
             access_token: token
