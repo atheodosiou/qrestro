@@ -180,5 +180,52 @@ User
 | `MultilangModule`  | i18n support for menus                   |
 
 
+---
 
+## 📡 API Routes
+
+### 🔐 Auth Routes (`/api/auth`)
+- `GET /api/auth/me` – Get authenticated user info
+- `POST /api/auth/register` – Register new user
+- `POST /api/auth/login` – Login with email/password
+- `POST /api/auth/google` – Login with Google
+
+---
+
+### 🏢 Venue Routes (`/api/venues`)
+- `POST /api/venues` – Create venue
+- `GET /api/venues` – Get all venues (by owner)
+- `GET /api/venues/:id` – Get single venue by ID
+- `PATCH /api/venues/:id` – Update venue
+- `DELETE /api/venues/:id` – Delete venue
+
+---
+
+### 📂 Menu Section Routes (`/api/venues/:venueId/sections`)
+- `POST /api/venues/:venueId/sections` – Create menu section
+- `GET /api/venues/:venueId/sections` – Get all sections for venue
+- `GET /api/venues/:venueId/sections/:id` – Get one section
+- `PATCH /api/venues/:venueId/sections/:id` – Update section
+- `DELETE /api/venues/:venueId/sections/:id` – Delete section
+
+---
+
+### 🍽️ Menu Item Routes (`/api/venues/:venueId/sections/:sectionId/items`)
+- `POST /api/venues/:venueId/sections/:sectionId/items` – Create menu item
+- `GET /api/venues/:venueId/sections/:sectionId/items` – Get all items in section
+- `GET /api/venues/:venueId/sections/:sectionId/items/:id` – Get single menu item
+- `PATCH /api/venues/:venueId/sections/:sectionId/items/:id` – Update menu item
+- `DELETE /api/venues/:venueId/sections/:sectionId/items/:id` – Delete menu item
+
+---
+
+### 🎨 Theme Settings (`/api/venues/:venueId/theme-settings`)
+- `GET /api/venues/:venueId/theme-settings` – Get theme settings for venue
+- `PATCH /api/venues/:venueId/theme-settings` – Update or create settings
+- `DELETE /api/venues/:venueId/theme-settings` – Delete theme settings
+
+---
+
+### 🌐 Public Menu Route (`/api/menu`)
+- `GET /api/menu/:slug` – Get full public menu by venue slug
 
