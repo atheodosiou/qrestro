@@ -21,7 +21,6 @@ export class VenuesController {
 
     @Post()
     create(@Request() req, @Body() dto: CreateVenueDto) {
-        console.log(req.user)
         return this.venuesService.create({ ...dto, ownerId: req.user.userId });
     }
 
