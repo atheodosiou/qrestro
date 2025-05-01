@@ -18,6 +18,7 @@ JWT_SECRET=super-secret-key
 JWT_EXPIRES_IN=7d
 GOOGLE_CLIENT_ID=647621593846-2e2q95e4dcdjmvs47k077e61vktg7otp.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=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
+APP_BASE_URL=https://yourapp.com
 ```
 
 ## 🧩 Backend Module Overview – QResto
@@ -229,3 +230,9 @@ User
 ### 🌐 Public Menu Route (`/api/menu`)
 - `GET /api/menu/:slug` – Get full public menu by venue slug
 
+---
+
+### 📷 QR Code Routes (`/api/qrcode`)
+- `GET /api/qrcode/:slug` – Returns a **PNG image** of a QR code linking to the venue’s public menu (`/menu/:slug`)
+
+📌 The base URL used in the QR code is configured via the `.env` variable `APP_BASE_URL`
