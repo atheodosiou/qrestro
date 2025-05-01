@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { VenuesModule } from './venues/venues.module';
 import { MenuSectionsModule } from './menu-sections/menu-sections.module';
 import { MenuItemsModule } from './menu-items/menu-items.module';
+import { ThemeSettingsModule } from './theme-settings/theme-settings.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { MenuItemsModule } from './menu-items/menu-items.module';
     UsersModule,
     VenuesModule,
     MenuSectionsModule,
-    MenuItemsModule
+    MenuItemsModule,
+    ThemeSettingsModule
   ]
 })
 export class AppModule { }
