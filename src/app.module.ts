@@ -8,6 +8,7 @@ import { MenuSectionsModule } from './menu-sections/menu-sections.module';
 import { MenuItemsModule } from './menu-items/menu-items.module';
 import { ThemeSettingsModule } from './theme-settings/theme-settings.module';
 import { PublicMenuModule } from './public-menu/public-menu.module';
+import { QrCodeModule } from './qr-codes/qr-codes.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { PublicMenuModule } from './public-menu/public-menu.module';
     MenuSectionsModule,
     MenuItemsModule,
     ThemeSettingsModule,
-    PublicMenuModule
+    PublicMenuModule,
+    QrCodeModule
   ]
 })
 export class AppModule { }
