@@ -1,13 +1,13 @@
-import { IsOptional, IsString, IsNumber, IsBoolean } from 'class-validator';
+import { IsOptional, IsString, IsNumber, IsBoolean, IsObject } from 'class-validator';
 
 export class UpdateMenuItemDto {
     @IsOptional()
-    @IsString()
-    name?: string;
+    @IsObject()
+    name?: Record<string, string>;
 
     @IsOptional()
-    @IsString()
-    description?: string;
+    @IsObject()
+    description?: Record<string, string>;
 
     @IsOptional()
     @IsNumber()
@@ -24,4 +24,8 @@ export class UpdateMenuItemDto {
     @IsOptional()
     @IsNumber()
     order?: number;
+
+    @IsOptional()
+    @IsString()
+    defaultLanguage?: string;
 }

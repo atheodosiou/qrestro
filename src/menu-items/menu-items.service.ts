@@ -7,36 +7,76 @@ import { UpdateMenuItemDto } from './dtos/update-menu-item.dto';
 
 @Injectable()
 export class MenuItemsService {
-    constructor(
-        @InjectModel(MenuItem.name) private itemModel: Model<MenuItemDocument>
-    ) { }
+    constructor(@InjectModel(MenuItem.name) private itemModel: Model<MenuItemDocument>) { }
 
-    create(dto: CreateMenuItemDto, sectionId: Types.ObjectId) {
-        return this.itemModel.create({ ...dto, sectionId: new Types.ObjectId(sectionId) });
+    private getTranslated(map: Map<string, string> | undefined, lang: string, fallback: string): string {
+        return map?.get(lang) || map?.get(fallback) || '';
     }
 
-    findBySection(sectionId: Types.ObjectId) {
-        return this.itemModel.find({ sectionId: new Types.ObjectId(sectionId) }).sort({ order: 1 }).exec();
+    private applyTranslations(map: Map<string, string>, updates: Record<string, string | null>): Map<string, string> {
+        for (const [lang, value] of Object.entries(updates)) {
+            if (value === null) map.delete(lang);
+            else map.set(lang, value);
+        }
+        return map;
     }
 
-    async findOne(id: string, sectionId: Types.ObjectId) {
-        const item = await this.itemModel.findOne({ _id: id, sectionId: new Types.ObjectId(sectionId) });
+    async create(dto: CreateMenuItemDto, sectionId: Types.ObjectId) {
+        return this.itemModel.create({
+            ...dto,
+            sectionId,
+            defaultLanguage: dto.defaultLanguage || 'en',
+        });
+    }
+
+    async findBySection(sectionId: Types.ObjectId, lang?: string) {
+        const items = await this.itemModel.find({ sectionId }).sort({ order: 1 });
+        return lang
+            ? items.map((i) => ({
+                _id: i._id,
+                price: i.price,
+                imageUrl: i.imageUrl,
+                isAvailable: i.isAvailable,
+                order: i.order,
+                name: this.getTranslated(i.name ?? new Map(), lang, i.defaultLanguage),
+                description: this.getTranslated(i.description ?? new Map(), lang, i.defaultLanguage),
+            }))
+            : items;
+    }
+
+    async findOne(id: string, sectionId: Types.ObjectId, lang?: string) {
+        const item = await this.itemModel.findOne({ _id: id, sectionId });
         if (!item) throw new NotFoundException('Item not found');
-        return item;
+
+        if (!lang) return item;
+        return {
+            _id: item._id,
+            price: item.price,
+            imageUrl: item.imageUrl,
+            isAvailable: item.isAvailable,
+            order: item.order,
+            name: this.getTranslated(item.name ?? new Map(), lang, item.defaultLanguage),
+            description: this.getTranslated(item.description ?? new Map(), lang, item.defaultLanguage),
+        };
     }
 
     async update(id: string, dto: UpdateMenuItemDto, sectionId: Types.ObjectId) {
-        const item = await this.itemModel.findOneAndUpdate(
-            { _id: id, sectionId: new Types.ObjectId(sectionId) },
-            { $set: dto },
-            { new: true }
-        );
+        const item = await this.itemModel.findOne({ _id: id, sectionId });
         if (!item) throw new NotFoundException('Item not found or unauthorized');
-        return item;
+
+        if (dto.name) item.name = this.applyTranslations(item.name || new Map(), dto.name);
+        if (dto.description) item.description = this.applyTranslations(item.description || new Map(), dto.description);
+        if (typeof dto.price === 'number') item.price = dto.price;
+        if (dto.imageUrl) item.imageUrl = dto.imageUrl;
+        if (typeof dto.isAvailable === 'boolean') item.isAvailable = dto.isAvailable;
+        if (typeof dto.order === 'number') item.order = dto.order;
+        if (dto.defaultLanguage) item.defaultLanguage = dto.defaultLanguage;
+
+        return item.save();
     }
 
     async delete(id: string, sectionId: Types.ObjectId) {
-        const deleted = await this.itemModel.findOneAndDelete({ _id: id, sectionId: new Types.ObjectId(sectionId) });
+        const deleted = await this.itemModel.findOneAndDelete({ _id: id, sectionId });
         if (!deleted) throw new NotFoundException('Item not found or unauthorized');
     }
 }

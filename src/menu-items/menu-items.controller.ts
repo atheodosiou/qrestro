@@ -1,9 +1,9 @@
-import { Controller, Post, Get, Patch, Delete, Param, Body, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Types } from 'mongoose';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { MenuItemsService } from './menu-items.service';
 import { CreateMenuItemDto } from './dtos/create-menu-item.dto';
 import { UpdateMenuItemDto } from './dtos/update-menu-item.dto';
-import { Types } from 'mongoose';
+import { MenuItemsService } from './menu-items.service';
 
 @Controller('venues/:venueId/sections/:sectionId/items')
 @UseGuards(JwtAuthGuard)
@@ -16,13 +16,13 @@ export class MenuItemsController {
     }
 
     @Get()
-    findAll(@Param('sectionId') sectionId: string) {
-        return this.menuItemsService.findBySection(new Types.ObjectId(sectionId));
+    findAll(@Param('sectionId') sectionId: string, @Query('lang') lang?: string) {
+        return this.menuItemsService.findBySection(new Types.ObjectId(sectionId), lang);
     }
 
     @Get(':id')
-    findOne(@Param('sectionId') sectionId: string, @Param('id') id: string) {
-        return this.menuItemsService.findOne(id, new Types.ObjectId(sectionId));
+    findOne(@Param('sectionId') sectionId: string, @Param('id') id: string, @Query('lang') lang?: string) {
+        return this.menuItemsService.findOne(id, new Types.ObjectId(sectionId), lang);
     }
 
     @Patch(':id')
@@ -35,10 +35,7 @@ export class MenuItemsController {
     }
 
     @Delete(':id')
-    remove(
-        @Param('sectionId') sectionId: string,
-        @Param('id') id: string
-    ) {
+    remove(@Param('sectionId') sectionId: string, @Param('id') id: string) {
         return this.menuItemsService.delete(id, new Types.ObjectId(sectionId));
     }
 }

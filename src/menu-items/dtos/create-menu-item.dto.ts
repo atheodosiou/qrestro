@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsOptional, IsString, IsNumber, IsBoolean } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsNumber, IsBoolean, IsObject } from 'class-validator';
 
 export class CreateMenuItemDto {
-    @IsString()
+    @IsObject()
     @IsNotEmpty()
-    name: string;
+    name: Record<string, string>;
 
     @IsOptional()
-    @IsString()
-    description?: string;
+    @IsObject()
+    description?: Record<string, string>;
 
     @IsOptional()
     @IsNumber()
@@ -24,4 +24,8 @@ export class CreateMenuItemDto {
     @IsOptional()
     @IsNumber()
     order?: number;
+
+    @IsOptional()
+    @IsString()
+    defaultLanguage?: string;
 }

@@ -226,10 +226,10 @@ User
 
 ### 🍽️ Menu Item Routes (`/api/venues/:venueId/sections/:sectionId/items`)
 
-- `POST /api/venues/:venueId/sections/:sectionId/items` – Create menu item
-- `GET /api/venues/:venueId/sections/:sectionId/items` – Get all items in section
-- `GET /api/venues/:venueId/sections/:sectionId/items/:id` – Get single menu item
-- `PATCH /api/venues/:venueId/sections/:sectionId/items/:id` – Update menu item
+- `POST /api/venues/:venueId/sections/:sectionId/items` – Create menu item (accepts `name` and `description` as language maps; optional `defaultLanguage`)
+- `GET /api/venues/:venueId/sections/:sectionId/items` – Get all items in section (supports `?lang=xx` to return translated fields)
+- `GET /api/venues/:venueId/sections/:sectionId/items/:id` – Get single menu item (supports `?lang=xx` to return translated fields)
+- `PATCH /api/venues/:venueId/sections/:sectionId/items/:id` – Update menu item (can update base fields and add/update/remove translations)
 - `DELETE /api/venues/:venueId/sections/:sectionId/items/:id` – Delete menu item
 
 ---
