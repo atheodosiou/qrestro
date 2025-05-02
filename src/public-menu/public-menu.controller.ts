@@ -1,4 +1,4 @@
-import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, Query } from '@nestjs/common';
 import { VenuesService } from '../venues/venues.service';
 import { MenuSectionsService } from '../menu-sections/menu-sections.service';
 import { MenuItemsService } from '../menu-items/menu-items.service';
@@ -15,20 +15,23 @@ export class PublicMenuController {
     ) { }
 
     @Get(':slug')
-    async getMenuBySlug(@Param('slug') slug: string) {
-        const venueDoc = await this.venuesService.findBySlug(slug);
+    async getMenuBySlug(
+        @Param('slug') slug: string,
+        @Query('lang') lang?: string
+    ) {
+        const venueDoc = await this.venuesService.findBySlug(slug, lang);
         if (!venueDoc) throw new NotFoundException('Venue not found');
 
         const venueId = new Types.ObjectId((venueDoc as any)._id.toString());
-
         const theme = await this.themeService.findByVenue(venueId);
-        const sections = await this.sectionsService.findByVenue(venueId);
+
+        const sections = await this.sectionsService.findByVenue(venueId, lang);
 
         const sectionsWithItems = await Promise.all(
-            sections.map(async (section) => {
-                const items = await this.itemsService.findBySection((section as any)._id);
+            sections.map(async (section: any) => {
+                const items = await this.itemsService.findBySection(section._id, lang);
                 return {
-                    ...section.toObject(),
+                    ...section,
                     items,
                 };
             })

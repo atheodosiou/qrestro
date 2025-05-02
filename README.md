@@ -244,7 +244,7 @@ User
 
 ### 🌐 Public Menu Route (`/api/menu`)
 
-- `GET /api/menu/:slug` – Get full public menu by venue slug
+- `GET /api/menu/:slug` – Get full public menu by venue slug (supports `?lang=xx` to return translated venue, sections, and items)
 
 ---
 
