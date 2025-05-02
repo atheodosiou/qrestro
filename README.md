@@ -73,13 +73,20 @@ QResto is a modular NestJS backend for managing digital menus for restaurants, c
 ```ts
 @Schema()
 export class Venue {
-  @Prop({ required: true }) name: string;
-  @Prop({ required: true, unique: true }) slug: string;
-  @Prop() logoUrl?: string;
-  @Prop() description?: string;
-  @Prop({ required: true, ref: 'User' }) ownerId: string;
-  @Prop({ default: true }) isActive: boolean;
-  @Prop({ default: Date.now }) createdAt: Date;
+  @Prop({ type: Map, of: String, required: true })
+  name: Map<string, string>;
+  @Prop({ type: Map, of: String })
+  description?: Map<string, string>;
+  @Prop({ required: true, unique: true })
+  slug: string;
+  @Prop()
+  logoUrl?: string;
+  @Prop({ required: true, ref: 'User' })
+  ownerId: string;
+  @Prop({ default: true })
+  isActive: boolean;
+  @Prop({ required: true, default: 'en' })
+  defaultLanguage: string;
 }
 ```
 
@@ -101,9 +108,14 @@ export class Venue {
 ```ts
 @Schema()
 export class MenuSection {
-  @Prop({ required: true }) title: string;
-  @Prop({ required: true, ref: 'Venue' }) venueId: string;
-  @Prop() order?: number;
+  @Prop({ type: Map, of: String, required: true })
+  title: Map<string, string>;
+  @Prop({ required: true, ref: 'Venue' })
+  venueId: string;
+  @Prop({ default: 0 })
+  order: number;
+  @Prop({ required: true, default: 'en' })
+  defaultLanguage: string;
 }
 ```
 
@@ -125,13 +137,22 @@ export class MenuSection {
 ```ts
 @Schema()
 export class MenuItem {
-  @Prop({ required: true }) name: string;
-  @Prop() description?: string;
-  @Prop() price?: number;
-  @Prop() imageUrl?: string;
-  @Prop({ required: true, ref: 'MenuSection' }) sectionId: string;
-  @Prop({ default: true }) isAvailable: boolean;
-  @Prop() order?: number;
+  @Prop({ type: Map, of: String, required: true })
+  name: Map<string, string>;
+  @Prop({ type: Map, of: String })
+  description?: Map<string, string>;
+  @Prop()
+  price?: number;
+  @Prop()
+  imageUrl?: string;
+  @Prop({ required: true, ref: 'MenuSection' })
+  sectionId: string;
+  @Prop({ default: true })
+  isAvailable: boolean;
+  @Prop()
+  order?: number;
+  @Prop({ required: true, default: 'en' })
+  defaultLanguage: string;
 }
 ```
 
