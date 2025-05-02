@@ -194,11 +194,12 @@ User
 ---
 
 ### 🏢 Venue Routes (`/api/venues`)
-- `POST /api/venues` – Create venue
-- `GET /api/venues` – Get all venues (by owner)
-- `GET /api/venues/:id` – Get single venue by ID
-- `PATCH /api/venues/:id` – Update venue
-- `DELETE /api/venues/:id` – Delete venue
+
+* `POST /api/venues` – Create venue (accepts `name` and `description` as language maps; optional `defaultLanguage`)
+* `GET /api/venues` – Get all venues (by owner) (supports `?lang=xx` to return translated fields)
+* `GET /api/venues/:id` – Get single venue by ID (supports `?lang=xx` to return translated fields)
+* `PATCH /api/venues/:id` – Update venue (can update base fields and add/update/remove language translations)
+* `DELETE /api/venues/:id` – Delete venue
 
 ---
 
