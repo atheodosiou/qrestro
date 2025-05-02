@@ -1,9 +1,13 @@
-import { IsOptional, IsString, IsBoolean, Matches } from 'class-validator';
+import { IsOptional, IsString, IsBoolean, Matches, IsObject } from 'class-validator';
 
 export class UpdateVenueDto {
     @IsOptional()
-    @IsString()
-    name?: string;
+    @IsObject()
+    name?: Record<string, string>;
+
+    @IsOptional()
+    @IsObject()
+    description?: Record<string, string>;
 
     @IsOptional()
     @IsString()
@@ -14,13 +18,13 @@ export class UpdateVenueDto {
 
     @IsOptional()
     @IsString()
-    description?: string;
-
-    @IsOptional()
-    @IsString()
     logoUrl?: string;
 
     @IsOptional()
     @IsBoolean()
     isActive?: boolean;
+
+    @IsOptional()
+    @IsString()
+    defaultLanguage?: string;
 }

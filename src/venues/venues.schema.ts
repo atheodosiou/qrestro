@@ -5,14 +5,14 @@ export type VenueDocument = Venue & Document;
 
 @Schema({ timestamps: true })
 export class Venue {
-    @Prop({ required: true })
-    name: string;
-
     @Prop({ required: true, unique: true })
     slug: string;
 
-    @Prop()
-    description?: string;
+    @Prop({ type: Map, of: String, default: {} })
+    name: Map<string, string>;
+
+    @Prop({ type: Map, of: String, default: {} })
+    description?: Map<string, string>;
 
     @Prop()
     logoUrl?: string;
@@ -22,6 +22,9 @@ export class Venue {
 
     @Prop({ default: true })
     isActive: boolean;
+
+    @Prop({ required: true, default: 'en' })
+    defaultLanguage: string;
 }
 
 export const VenueSchema = SchemaFactory.createForClass(Venue);

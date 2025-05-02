@@ -1,10 +1,6 @@
-import { IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
+import { IsNotEmpty, IsObject, IsOptional, IsString, Matches } from 'class-validator';
 
 export class CreateVenueDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
-
     @IsString()
     @IsNotEmpty()
     @Matches(/^[a-z0-9-]+$/, {
@@ -12,11 +8,19 @@ export class CreateVenueDto {
     })
     slug: string;
 
+    @IsObject()
+    @IsNotEmpty()
+    name: Record<string, string>;
+
     @IsOptional()
-    @IsString()
-    description?: string;
+    @IsObject()
+    description?: Record<string, string>;
 
     @IsOptional()
     @IsString()
     logoUrl?: string;
+
+    @IsOptional()
+    @IsString()
+    defaultLanguage?: string;
 }

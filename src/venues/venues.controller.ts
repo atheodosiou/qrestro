@@ -8,6 +8,7 @@ import {
     Delete,
     UseGuards,
     Request,
+    Query,
 } from '@nestjs/common';
 import { VenuesService } from './venues.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -25,13 +26,13 @@ export class VenuesController {
     }
 
     @Get()
-    getMyVenues(@Request() req) {
-        return this.venuesService.findAllByOwner(req.user.userId);
+    getMyVenues(@Request() req, @Query('lang') lang?: string) {
+        return this.venuesService.findAllByOwner(req.user.userId, lang);
     }
 
     @Get(':id')
-    getById(@Param('id') id: string) {
-        return this.venuesService.findById(id);
+    getById(@Param('id') id: string, @Query('lang') lang?: string) {
+        return this.venuesService.findById(id, lang);
     }
 
     @Patch(':id')
