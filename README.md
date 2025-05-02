@@ -4,6 +4,8 @@
 
 # QRestro - Bankend NestJS
 
+> **QResto** is a multilingual digital menu backend built with NestJS and MongoDB. It enables restaurants and similar venues to manage their menus, sections, and items with full internationalization (i18n) support, secure user authentication, customizable themes, and public menu access via unique slugs or QR codes.
+
 ## Environment Variables
 
 Create a `.env` file in the root directory and add the following variables:
