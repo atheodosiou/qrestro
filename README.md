@@ -300,3 +300,52 @@ User
 - `GET /api/qrcode/:slug` – Returns a **PNG image** of a QR code linking to the venue’s public menu (`/menu/:slug`)
 
 📌 The base URL used in the QR code is configured via the `.env` variable `APP_BASE_URL`
+
+---
+
+## ✅ API To-Do List (Next Steps)
+
+These are the remaining tasks to polish the MVP backend for QResto:
+
+### 🔐 Security & Validation
+
+* [ ] Add ownership checks to all update/delete service methods
+* [ ] Implement `@CurrentUser()` decorator for cleaner controller access
+* [ ] Add a global exception filter to standardize error responses
+* [ ] Add rate limiting using `@nestjs/throttler` for public routes (e.g., `/menu/:slug`, `/qrcode/:slug`)
+
+### 📦 File Upload Support
+
+* [ ] Add support for uploading images (e.g., menu item images, venue logo)
+
+  * [ ] Local upload for dev
+  * [ ] Cloud storage support (Cloudinary / S3) for production
+
+### 📄 Pagination & Filtering
+
+* [ ] Add pagination to `GET` endpoints:
+
+  * [ ] `/venues`
+  * [ ] `/sections`
+  * [ ] `/items`
+* [ ] Add sorting/filtering options (e.g., by `isAvailable` or `order`)
+
+### ♻️ Data Handling
+
+* [ ] Support soft deletes (`isDeleted`) instead of physical deletion
+* [ ] Consider audit logging for changes (optional)
+
+### 📈 Admin & Stats (Optional)
+
+* [ ] Add API endpoints for analytics:
+
+  * [ ] Menu views
+  * [ ] Clicks / interactions
+
+### 🎯 Polish & Deployment
+
+* [ ] Add CORS config and environment-specific security rules
+* [ ] Ensure HTTPS is enforced in production
+* [ ] Add a health check endpoint (`/health`)
+* [ ] Add Swagger response types (`@ApiOkResponse`, etc.) for better docs
+
