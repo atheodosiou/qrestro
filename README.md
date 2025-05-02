@@ -6,6 +6,30 @@
 
 > **QResto** is a multilingual digital menu backend built with NestJS and MongoDB. It enables restaurants and similar venues to manage their menus, sections, and items with full internationalization (i18n) support, secure user authentication, customizable themes, and public menu access via unique slugs or QR codes.
 
+---
+
+## 📘 API Documentation (Swagger)
+
+This project includes built-in, auto-generated API documentation using [Swagger](https://swagger.io/), available at:
+
+```
+http://localhost:3000/api/docs
+```
+
+The Swagger UI provides:
+
+* 📦 Full list of endpoints with parameters and responses
+* 🔐 Support for JWT Bearer authentication
+* 🌐 Multilingual request examples for menus, venues, sections, and items
+
+> **Note:** After authentication, click the **"Authorize"** button and paste your JWT token as:
+
+```
+Bearer <your-token>
+```
+
+---
+
 ## Environment Variables
 
 Create a `.env` file in the root directory and add the following variables:
