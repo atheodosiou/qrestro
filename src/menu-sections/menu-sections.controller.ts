@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Patch, Delete, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Param, Patch, Delete, Get, Request, UseGuards, Query } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { MenuSectionsService } from './menu-sections.service';
 import { CreateMenuSectionDto } from './dtos/create-menu-section.dto';
@@ -20,16 +20,17 @@ export class MenuSectionsController {
     }
 
     @Get()
-    findAll(@Param('venueId') venueId: string) {
-        return this.sectionsService.findByVenue(new Types.ObjectId(venueId));
+    findAll(@Param('venueId') venueId: string, @Query('lang') lang?: string) {
+        return this.sectionsService.findByVenue(new Types.ObjectId(venueId), lang);
     }
 
     @Get(':id')
     getById(
         @Param('venueId') venueId: string,
-        @Param('id') id: string
+        @Param('id') id: string,
+        @Query('lang') lang?: string
     ) {
-        return this.sectionsService.findOne(id, new Types.ObjectId(venueId));
+        return this.sectionsService.findOne(id, new Types.ObjectId(venueId), lang);
     }
 
     @Patch(':id')

@@ -1,9 +1,9 @@
-import { IsOptional, IsString, IsNumber } from 'class-validator';
+import { IsNumber, IsObject, IsOptional } from 'class-validator';
 
 export class UpdateMenuSectionDto {
     @IsOptional()
-    @IsString()
-    title?: string;
+    @IsObject()
+    title?: Record<string, string>;
 
     @IsOptional()
     @IsNumber()
