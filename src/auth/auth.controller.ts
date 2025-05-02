@@ -2,6 +2,7 @@ import {
     Body,
     Controller,
     Get,
+    NotFoundException,
     Post,
     Request,
     UseGuards,
@@ -12,19 +13,24 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { LocalAuthGuard } from './local-auth.guard';
+import { UsersService } from 'src/users/users.service';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private usersService: UsersService) { }
 
     @UseGuards(AuthGuard('jwt'))
     @Get('me')
     @ApiOperation({ summary: 'Get current authenticated user' })
     @ApiBearerAuth()
     @ApiResponse({ status: 200, description: 'Returns authenticated user info' })
-    getMe(@Request() req: any) {
-        return req.user;
+    async getMe(@Request() req: any) {
+        const user = await this.usersService.findById(req.user.userId);
+        if (!user) throw new NotFoundException('User not found');
+
+        const { password, ...rest } = user.toObject()
+        return rest;
     }
 
     @Post('register')

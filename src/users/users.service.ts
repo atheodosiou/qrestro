@@ -15,7 +15,7 @@ export class UsersService {
         return this.userModel.create({ ...data, provider: 'local', role: 'owner' });
     }
 
-    async findById(id: string): Promise<User | null> {
+    async findById(id: string): Promise<UserDocument | null> {
         return this.userModel.findById(id).exec();
     }
 
