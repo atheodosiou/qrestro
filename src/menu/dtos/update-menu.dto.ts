@@ -1,7 +1,7 @@
-import { IsOptional, IsString, IsNumber, IsBoolean, IsObject } from 'class-validator';
+import { IsOptional, IsString, IsNumber, IsBoolean, IsObject, IsArray } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-export class UpdateMenuItemDto {
+export class UpdateMenuDto {
   @ApiPropertyOptional({
     example: { fr: 'Hamburger au fromage' },
     description: 'Update or remove name translations'
@@ -19,14 +19,6 @@ export class UpdateMenuItemDto {
   description?: Record<string, string>;
 
   @ApiPropertyOptional({
-    example: 10.5,
-    description: 'Updated item price'
-  })
-  @IsOptional()
-  @IsNumber()
-  price?: number;
-
-  @ApiPropertyOptional({
     example: 'https://example.com/new-image.jpg',
     description: 'Updated image URL'
   })
@@ -36,33 +28,25 @@ export class UpdateMenuItemDto {
 
   @ApiPropertyOptional({
     example: false,
-    description: 'Toggle item availability'
+    description: 'Toggle menu availability'
   })
   @IsOptional()
   @IsBoolean()
-  isAvailable?: boolean;
-
-  @ApiPropertyOptional({
-    example: 'Updated item status',
-    description: 'Updated item status'
-  })
-  @IsOptional()
-  @IsNumber()
-  status?: number;
+  isActive?: boolean;
 
   @ApiPropertyOptional({
     example: 0,
-    description: 'Updated item popularity in section'
+    description: 'Updated menu popularity'
   })
   @IsOptional()
   @IsNumber()
   popularity?: number;
 
   @ApiPropertyOptional({
-    example: 'en',
-    description: 'Change default language for the item'
+    example: { sections: [] },
+    description: 'Update or remove name translations'
   })
   @IsOptional()
-  @IsString()
-  defaultLanguage?: string;
+  @IsArray()
+  sections?: any[];
 }

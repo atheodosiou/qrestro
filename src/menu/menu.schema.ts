@@ -1,36 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type MenuItemDocument = MenuItem & Document;
+export type MenuDocument = Menu & Document;
 
 @Schema({ timestamps: true })
-export class MenuItem {
+export class Menu {
   @Prop({ type: Map, of: String, required: true })
   name: Map<string, string>;
 
   @Prop({ type: Map, of: String, default: {} })
   description?: Map<string, string>;
 
-  @Prop({ default: false })
-  isGlobal?: boolean;
-
-  @Prop()
-  price?: number;
-
   @Prop()
   imageUrl?: string;
 
   @Prop({ default: true })
-  isAvailable: boolean;
-
-  @Prop({ default: 1 })
-  status: number;
+  isActive: boolean;
 
   @Prop({ default: 0 })
   popularity?: number;
 
-  @Prop({ required: true, default: 'en' })
-  defaultLanguage: string;
+  @Prop({ default: [] })
+  sections?: any[];
 }
 
-export const MenuItemSchema = SchemaFactory.createForClass(MenuItem);
+export const MenuSchema = SchemaFactory.createForClass(Menu);

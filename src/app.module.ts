@@ -9,6 +9,7 @@ import { MenuItemsModule } from './menu-items/menu-items.module';
 import { ThemeSettingsModule } from './theme-settings/theme-settings.module';
 import { PublicMenuModule } from './public-menu/public-menu.module';
 import { QrCodeModule } from './qr-codes/qr-codes.module';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { QrCodeModule } from './qr-codes/qr-codes.module';
     AuthModule,
     UsersModule,
     VenuesModule,
+    MenuModule,
     MenuSectionsModule,
     MenuItemsModule,
     ThemeSettingsModule,

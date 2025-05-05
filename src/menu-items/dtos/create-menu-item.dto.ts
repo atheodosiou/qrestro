@@ -2,59 +2,76 @@ import { IsNotEmpty, IsOptional, IsString, IsNumber, IsBoolean, IsObject } from 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMenuItemDto {
-    @ApiProperty({
-        example: { en: 'Cheeseburger', el: 'Τσίζμπεργκερ' },
-        description: 'Localized names for the item'
-    })
-    @IsObject()
-    @IsNotEmpty()
-    name: Record<string, string>;
+  @ApiProperty({
+    example: { en: 'Cheeseburger', el: 'Τσίζμπεργκερ' },
+    description: 'Localized names for the item',
+  })
+  @IsObject()
+  @IsNotEmpty()
+  name: Record<string, string>;
 
-    @ApiPropertyOptional({
-        example: { en: 'Grilled beef with cheese', el: 'Μπιφτέκι σχάρας με τυρί' },
-        description: 'Localized descriptions for the item'
-    })
-    @IsOptional()
-    @IsObject()
-    description?: Record<string, string>;
+  @ApiProperty({
+    example: true,
+    description: 'If the product is global or not',
+  })
+  @IsBoolean()
+  @IsNotEmpty()
+  isGlobal: boolean;
 
-    @ApiPropertyOptional({
-        example: 9.99,
-        description: 'Item price in euros'
-    })
-    @IsOptional()
-    @IsNumber()
-    price?: number;
+  @ApiPropertyOptional({
+    example: { en: 'Grilled beef with cheese', el: 'Μπιφτέκι σχάρας με τυρί' },
+    description: 'Localized descriptions for the item',
+  })
+  @IsOptional()
+  @IsObject()
+  description?: Record<string, string>;
 
-    @ApiPropertyOptional({
-        example: 'https://example.com/image.jpg',
-        description: 'Image URL for this menu item'
-    })
-    @IsOptional()
-    @IsString()
-    imageUrl?: string;
+  @ApiPropertyOptional({
+    example: 9.99,
+    description: 'Item price in euros',
+  })
+  @IsOptional()
+  @IsNumber()
+  price?: number;
 
-    @ApiPropertyOptional({
-        example: true,
-        description: 'Indicates if the item is available'
-    })
-    @IsOptional()
-    @IsBoolean()
-    isAvailable?: boolean;
+  @ApiPropertyOptional({
+    example: 'https://example.com/image.jpg',
+    description: 'Image URL for this menu item',
+  })
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
 
-    @ApiPropertyOptional({
-        example: 2,
-        description: 'Ordering position in the section'
-    })
-    @IsOptional()
-    @IsNumber()
-    order?: number;
+  @ApiPropertyOptional({
+    example: true,
+    description: 'Indicates if the item is available',
+  })
+  @IsOptional()
+  @IsBoolean()
+  isAvailable?: boolean;
 
-    @ApiPropertyOptional({
-        example: 'en',
-        description: 'Default language for this item'
-    })
-    @IsOptional()
-    @IsString()
-    defaultLanguage?: string;
+  @ApiPropertyOptional({
+    example: 1,
+    description: 'Status of the item',
+  })
+  @IsOptional()
+  @IsNumber()
+  status?: number;
+
+  @ApiPropertyOptional({
+    example: 2,
+    description:
+      'Populairity of the item, like how many times it has been ordered',
+  })
+  @IsOptional()
+  @IsNumber()
+  popularity?: number;
+
+  @ApiPropertyOptional({
+    example: 'en',
+    description: 'Default language for this item',
+  })
+  @IsOptional()
+  @IsString()
+  defaultLanguage?: string;
 }
