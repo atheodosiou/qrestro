@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 
 export type MenuItem2Document = MenuItem2 & Document;
 
@@ -11,23 +11,23 @@ export class MenuItem2 {
   @Prop({ type: String, required: true })
   description: string;
 
-  @Prop({ default: false })
-  isGlobal?: boolean;
+  @Prop({ type: Boolean, default: false })
+  isGlobal: boolean;
 
-  @Prop()
-  price?: number;
+  @Prop({ type: Number, required: true })
+  price: number;
 
-  @Prop()
-  imageUrl?: string;
+  @Prop({ type: String || null, default: null })
+  imageUrl: string | null;
 
-  @Prop({ default: true })
+  @Prop({ type: Boolean, default: true })
   isAvailable: boolean;
 
-  @Prop({ default: 1 })
+  @Prop({ type: Number, default: 1 })
   status: number;
 
-  @Prop({ default: 0 })
-  popularity?: number;
+  @Prop({ type: Number, default: 0 })
+  popularity: number;
 
   @Prop({ required: true, default: 'en' })
   defaultLanguage: string;

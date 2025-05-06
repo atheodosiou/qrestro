@@ -20,7 +20,7 @@ export class Menu {
   @Prop({ default: 0 })
   popularity?: number;
 
-  @Prop({ default: [] })
+  @Prop({ default: [] }) // If this is a menu secion ids here, we need to set it as ref. 
   sections?: any[];
 }
 
