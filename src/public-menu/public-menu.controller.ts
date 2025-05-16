@@ -1,10 +1,10 @@
 import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Types } from 'mongoose';
-import { MenuItemsService } from '../menu-items/menu-items.service';
 import { MenuSectionsService } from '../menu-sections/menu-sections.service';
 import { ThemeSettingsService } from '../theme-settings/theme-settings.service';
 import { VenuesService } from '../venues/venues.service';
+import { MenuItemsService } from 'src/menu-items/menu-items.service';
 
 @ApiTags('Public Menu')
 @Controller('menu')
