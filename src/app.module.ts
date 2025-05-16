@@ -10,6 +10,9 @@ import { ThemeSettingsModule } from './theme-settings/theme-settings.module';
 import { PublicMenuModule } from './public-menu/public-menu.module';
 import { QrCodeModule } from './qr-codes/qr-codes.module';
 import { MenuModule } from './menu/menu.module';
+import { UploadModule } from './upload/upload.module';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -21,6 +24,10 @@ import { MenuModule } from './menu/menu.module';
         uri: config.get<string>('MONGO_URI'),
       }),
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
     AuthModule,
     UsersModule,
     VenuesModule,
@@ -29,7 +36,8 @@ import { MenuModule } from './menu/menu.module';
     MenuItemsModule,
     ThemeSettingsModule,
     PublicMenuModule,
-    QrCodeModule
-  ]
+    QrCodeModule,
+    UploadModule,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

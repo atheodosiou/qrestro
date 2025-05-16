@@ -29,7 +29,7 @@ export class VenuesController {
     create(@Request() req, @Body() dto: CreateVenueDto) {
         return this.venuesService.create({ ...dto, ownerId: req.user.userId });
     }
-
+    
     @Get()
     @ApiOperation({ summary: 'Get all venues for the authenticated user' })
     @ApiQuery({ name: 'lang', required: false, description: 'Language code for translated fields' })
