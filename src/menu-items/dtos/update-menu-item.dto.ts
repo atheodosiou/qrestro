@@ -14,16 +14,16 @@ export class UpdateMenuItemDto {
     description: 'Update or remove name translations',
   })
   @IsOptional()
-  @IsObject()
-  name?: Record<string, string>;
+  @IsString()
+  name?: string;
 
   @ApiPropertyOptional({
     example: { fr: 'Boeuf grillé avec du fromage' },
     description: 'Update or remove description translations',
   })
   @IsOptional()
-  @IsObject()
-  description?: Record<string, string>;
+  @IsString()
+  description?: string;
 
   @ApiPropertyOptional({
     example: 10.5,

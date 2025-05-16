@@ -10,12 +10,12 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMenuItemDto {
   @ApiProperty({
-    example: { en: 'Cheeseburger', el: 'Τσίζμπεργκερ' },
+    example: 'Menu item',
     description: 'Localized names for the item',
   })
-  @IsObject()
+  @IsString()
   @IsNotEmpty()
-  name: Record<string, string>;
+  name: string;
 
   @ApiProperty({
     example: true,
@@ -26,12 +26,12 @@ export class CreateMenuItemDto {
   isGlobal: boolean;
 
   @ApiPropertyOptional({
-    example: { en: 'Grilled beef with cheese', el: 'Μπιφτέκι σχάρας με τυρί' },
-    description: 'Localized descriptions for the item',
+    example: 'Grilled beef with cheese',
+    description: 'Description about the menu item',
   })
   @IsOptional()
-  @IsObject()
-  description?: Record<string, string>;
+  @IsString()
+  description?: string;
 
   @ApiPropertyOptional({
     example: 9.99,
