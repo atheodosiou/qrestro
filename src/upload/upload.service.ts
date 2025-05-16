@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import * as sharp from 'sharp';
 import * as fs from 'fs';
 import { join } from 'path';
@@ -28,5 +32,21 @@ export class UploadService {
     }
 
     return `/uploads/${fname}`;
+  }
+
+  async deleteImage(filename: string): Promise<boolean> {
+    const fullPath = join(this.uploadDir, filename);
+
+    if (!fs.existsSync(fullPath)) {
+      throw new NotFoundException('Image not found');
+    }
+
+    try {
+      fs.unlinkSync(fullPath);
+      return !fs.existsSync(fullPath);
+    } catch (error) {
+      console.error('Failed to delete image:', error);
+      return false;
+    }
   }
 }

@@ -6,6 +6,9 @@ import {
   BadRequestException,
   UseGuards,
   Request,
+  Delete,
+  Query,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
@@ -15,6 +18,7 @@ import {
   ApiBody,
   ApiConsumes,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -66,6 +70,29 @@ export class UploadController {
     return {
       message: 'Image uploaded successfully',
       url: imageUrl,
+    };
+  }
+
+  @Delete('image')
+  @ApiOperation({ summary: 'Delete an uploaded image by filename' })
+  @ApiQuery({ name: 'filename', required: true, example: 'compressed-123.jpg' })
+  @ApiResponse({ status: 200, description: 'Image deleted successfully' })
+  @ApiResponse({ status: 404, description: 'Image not found' })
+  @ApiResponse({ status: 500, description: 'Image could not be deleted' })
+  async deleteImage(@Query('filename') filename: string) {
+    if (!filename) {
+      throw new BadRequestException('Filename is required');
+    }
+
+    const deleted = await this.uploadService.deleteImage(filename);
+
+    if (!deleted) {
+      throw new InternalServerErrorException('Image could not be deleted');
+    }
+
+    return {
+      message: 'Image deleted successfully',
+      filename,
     };
   }
 }
